@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.menghuijing.mapper.MyMapper">
+	<select id="glist" resultType="com.menghuijing.pojo.Goods">
+		select * from tb_goods g,tb_brand b,tb_goodskind k where g.bid=b.id and g.kid=k.id
+		 <if test="bname!=null and bname!=''">
+			and bname like concat('%',#{bname},'%')
+		</if> 
+	</select>
+	<select id="blist" resultType="com.menghuijing.pojo.Brand">
+		select * from tb_brand
+	</select>
+	<select id="klist" resultType="com.menghuijing.pojo.Goodskind">
+		select * from tb_goodskind
+	</select>
+	<insert id="add">
+		insert into tb_goods(id,bid,kid,price) values(#{id},#{bid},#{kid},#{price});
+	</insert>
+	<select id="getById" resultType="com.menghuijing.pojo.Goodskind">
+		select * from tb_goods where id=#{id}
+	</select>
+	<update id="update">
+		update tb_goods set name=#{name},kid=#{kid},price=#{price} where id=#{id}
+	</update>
+	<delete id="delete">
+		delete from tb_goods where id=#{id}
+	</delete>
+</mapper>
